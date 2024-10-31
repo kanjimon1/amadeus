@@ -39,14 +39,14 @@ services:
     networks:
       - extrahours_my-network
 
-#  frontend:
-#    build: ./frontend
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      - backend
-#    networks:
-#      - extrahours_my-network
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - extrahours_my-network
 
 volumes:
   mysql-data:

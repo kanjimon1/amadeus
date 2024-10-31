@@ -4,7 +4,7 @@ import background from '../../assets/images/mainBackground.png';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
-        employeeid: '',
+        employeeId: '',
         username: '',
         email: '',
         password: '',
@@ -26,16 +26,23 @@ const RegisterForm = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("ENTRANDO AL HANDLE SUBMIT");
         try {
+            console.log("DENTRO DEL TRY:");
             const response = await fetch('http://localhost:8080/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
+
             });
 
+            console.log("DESPUES DEL TRY: ", response, formData);
+
             const data = await response.json();
+
+            console.log("DESPUES DEL JSON RESPONSE: ", response, data);
 
             if (!response.ok) {
                 throw new Error(data.message || 'Registration failed');
@@ -57,8 +64,8 @@ const RegisterForm = () => {
                         <label>Employee ID:</label>
                         <input
                             type="text"
-                            name="employeeid"
-                            value={formData.employeeid}
+                            name="employeeId"
+                            value={formData.employeeId}
                             onChange={handleChange}
                             required
                         />
