@@ -1,0 +1,57 @@
+@use '../utils/variables' as vars;
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: vars.$background-light;
+    border: 1px solid vars.$border-light;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px vars.$box-shadow-color;
+
+    img {
+        margin-left: 43%;
+        height: 10vh;
+        width: 10vh;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: vars.$text-light;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid vars.$input-border;
+            border-radius: 4px;
+
+            &:focus {
+                border-color: vars.$input-border-focus;
+                box-shadow: 0 0 5px vars.$focus-shadow-color;
+                outline: none;
+            }
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: vars.$button-bg;
+            color: vars.$button-text-color;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: vars.$button-hover-bg;
+            }
+        }
+    }
+}

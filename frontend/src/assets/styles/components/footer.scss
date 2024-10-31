@@ -1,0 +1,18 @@
+@use '../utils/variables' as vars;
+
+.footer {
+    font-size: 20px;
+    color: vars.$footer-color;
+    background-color: vars.$footer-background-color;
+    text-align: center;
+
+
+    /*background-color: black;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;*/
+
+}

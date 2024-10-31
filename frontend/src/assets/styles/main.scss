@@ -1,0 +1,11 @@
+// Base styles
+@use './base/index' as base;
+
+// Layout styles
+@use './layouts/index' as layouts;
+
+// Component styles
+@use './components/login-form' as login;
+
+//utils styles
+@use './utils/index' as utils;

@@ -1,0 +1,10 @@
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
