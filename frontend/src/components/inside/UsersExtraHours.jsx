@@ -23,9 +23,16 @@ const UsersExtraHours = () => {
     };
 
     return (
-        <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+        <div style={{
+            display: 'flex',
+            backgroundImage: `url(${background})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
+            height: '100vh'
+        }}>
             <div className="menu">
-                <h1>Horas extra Amadeus</h1>
+                <h1 style={{ color: 'white', textDecoration: 'none' }}>Horas extra Amadeus</h1>
                 <div className="grid">
                     {profileInfo.role === "USER" && (
                         <h2><p style={{ color: '#FFFFFF' }}>Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</p></h2>

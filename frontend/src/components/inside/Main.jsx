@@ -40,9 +40,11 @@ const MainPage = () => {
 
     return (
         <div style={{
+            display: 'flex',
             backgroundImage: `url(${background})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: 'contain',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
             height: '100vh'
         }}>
             {/* Left Pane (Sidebar) */}
@@ -57,7 +59,7 @@ const MainPage = () => {
                 justifyContent: 'space-between' // Space between nav items and logout button
             }}>
                 <div>
-                    <h2>Admin Dashboard</h2>
+                    <h2 style={{ color: 'white', textDecoration: 'none' }}>Admin Dashboard</h2>
                     <nav>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             <li><Link to="employees" style={{ color: 'white', textDecoration: 'none' }}>Employees</Link></li>
@@ -65,7 +67,6 @@ const MainPage = () => {
                             <li><Link to="users-extra-hours" style={{ color: 'white', textDecoration: 'none' }}>Users Extra Hours</Link></li>
                         </ul>
                     </nav>
-
                 </div>
                 <button onClick={logout} style={{
                     color: 'white',
@@ -78,22 +79,14 @@ const MainPage = () => {
                 }}>
                     Logout
                 </button>
-                {/*<div className="p-6">
-                    <div className="grid">
-                        <h2 className="text-2xl font-bold mb-4">Horas extra Amadeus</h2>
-                        {profileInfo.role === "ADMIN" && (
-                            <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
-                        )}
-                    </div>
-                </div>*/}
-                {/* Content Area */}
-                <div style={{ flex: 1, padding: '1rem', overflowY: 'auto' }}>
-                    <h2>Horas Extra Amadeus</h2>
-                    <Outlet />
-                    {profileInfo.role === "ADMIN" && (
-                        <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
-                    )}
-                </div>
+            </div>
+            {/* Content Area */}
+            <div style={{ flex: 1, padding: '1rem', overflowY: 'auto' }}>
+                <h2>Horas Extra Amadeus</h2>
+                <Outlet />
+                {profileInfo.role === "ADMIN" && (
+                    <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
+                )}
             </div>
         </div>
     );

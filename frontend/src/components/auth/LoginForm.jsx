@@ -57,7 +57,12 @@ const LoginForm = () => {
     };
 
     return (
-        <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+        <div style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            height: '100vh'
+        }}>
             <div class="login-container">
                 <h2>Amadeus Service Hub</h2>
                 <img alt="Amadeus" src={logo} />
