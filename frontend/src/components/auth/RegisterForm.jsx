@@ -8,7 +8,6 @@ const RegisterForm = () => {
         username: '',
         email: '',
         password: '',
-        //city: '',
         role: 'USER'  // Default role can be 'USER'
     });
     const [responseMessage, setResponseMessage] = useState('');
@@ -100,15 +99,6 @@ const RegisterForm = () => {
                             required
                         />
                     </div>
-                    {/*<div>
-                        <label>City:</label>
-                        <input
-                            type="text"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleChange}
-                        />
-                    </div>*/}
                     <div>
                         <label>Role:</label>
                         <select name="role" value={formData.role} onChange={handleChange}>

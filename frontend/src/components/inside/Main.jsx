@@ -7,19 +7,11 @@ import { AuthContext } from '../context/AuthContext';
 
 const MainPage = () => {
 
-    //const [profileInfo, setProfileInfo] = useState({});
-
-    /*useEffect(() => {
-        fetchProfileInfo();
-    }, []);*/
-
-    //const { isAuthenticated, role, logout } = useContext(AuthContext);
     const { isAuthenticated, auth, logout } = useContext(AuthContext);
     const [profileInfo, setProfileInfo] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        //if (!isAuthenticated || (role !== 'ADMIN' || role !== 'USER')) {
         if (!isAuthenticated || auth.role !== 'ADMIN') {
             navigate('/login');
         } else {

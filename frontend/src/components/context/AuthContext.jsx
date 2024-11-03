@@ -1,4 +1,3 @@
-// src/components/service/AuthContext.jsx
 import React, { createContext, useState } from 'react';
 import UserService from '../service/UserService';
 import { useNavigate } from 'react-router-dom';

@@ -35,64 +35,6 @@ function App() {
             <Navbar />
           </header>
           <main>
-            {/*<Routes>*/}
-
-            {/*<Route exact path="/" element={<LoginForm />} />
-              <Route exact path="/login" element={<LoginForm />} />
-              <Route path="/register" element={<RegisterForm />} />*/}
-            {/*<Route path="/main" element={<MainPage />} />
-            <Route path="/users-extra-hours" element={<UsersExtraHours />} />
-            <Route path="/employees" component={EmployeesList} />
-            <Route path="/products" component={ProductList} />*/}
-            {/* Protected Routes */}
-            {/*<Route
-                path="/main"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <Layout>
-                      <MainPage />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/users-extra-hours"
-                element={
-                  <ProtectedRoute allowedRoles={['USER', 'ADMIN']}>
-                    <Layout>
-                      <UsersExtraHours />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/employees"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <Layout>
-                      <EmployeesList />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/products"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN']}>
-                    <Layout>
-                      <ProductList />
-                    </Layout>
-                  </ProtectedRoute>
-                }
-              />*/}
-            {/* Check if user is authenticated and admin before rendering admin-only routes */}
-            {/*{UserService.adminOnly() && (
-              <>
-                <Route path="/main" element={<MainPage />} />
-              </>
-            )}*/}
-            {/*<Route path="*" element={<Navigate to="/login" />} />‰*/}
-
             <Routes>
               <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="/login" element={<LoginForm />} />
