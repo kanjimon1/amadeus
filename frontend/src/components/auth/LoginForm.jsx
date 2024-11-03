@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../../assets/styles/components/_login-form.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/login-type-amadeus.png';
-import UserService from '../service/UserService';
+//import UserService from '../service/UserService';
 import background from '../../assets/images/mainBackground.png';
+//import { useAuth } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 const LoginForm = () => {
-
+    const { login } = useContext(AuthContext);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setError] = useState('')
-    const [jwtToken, setJwtToken] = useState(null);
-    const navigate = useNavigate();
+    //const [jwtToken, setJwtToken] = useState(null);
+    //const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+
+    /*const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
@@ -42,7 +45,16 @@ const LoginForm = () => {
                 setError('');
             }, 5000);
         }
-    }
+    }*/
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await login(email, password);
+        } catch (error) {
+            setError('Login failed');
+        }
+    };
 
     return (
         <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
@@ -71,8 +83,9 @@ const LoginForm = () => {
                     <button type="submit">Login</button>
                 </form>
                 {errorMessage && <p class="error-message">{errorMessage}</p>}
-                {jwtToken && <p class="token-display">JWT Token: {jwtToken}</p>}
+                {/*{jwtToken && <p class="token-display">JWT Token: {jwtToken}</p>}*/}
                 {/* Enlace para redirigir a la página de registro */}
+                <p></p>
                 <p>No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
             </div>
         </div>

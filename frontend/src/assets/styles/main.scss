@@ -5,7 +5,8 @@
 @use './layouts/index' as layouts;
 
 // Component styles
-@use './components/login-form' as login;
+//@use './components/login-form' as login;
+@use './components/index' as login;
 
 //utils styles
 @use './utils/index' as utils;

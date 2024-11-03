@@ -200,4 +200,107 @@ h2 {
   background-color: #0056b3;
 }
 
+/* Navigation bar styles */
+.navbar {
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  background: none;
+  color: #053473;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #a4d5f0;
+  border-radius: 4px;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0;
+  list-style: none;
+  width: 150px;
+}
+
+.dropdown-header {
+  font-weight: bold;
+  padding: 0.5rem;
+  background-color: #f1f1f1;
+}
+
+.dropdown-item {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+.footer {
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #180346;
+  text-align: center;
+  /*background-color: black;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;*/
+}
+
+.app-layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  color: #fff;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 20px 0;
+}
+
+.active {
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=main.css.map */

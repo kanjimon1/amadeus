@@ -1,14 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import UserService from '../service/UserService';
 import background from '../../assets/images/mainBackground.png';
+//import Sidebar from '../common/Layout';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const MainPage = () => {
 
+    //const [profileInfo, setProfileInfo] = useState({});
+
+    /*useEffect(() => {
+        fetchProfileInfo();
+    }, []);*/
+
+    //const { isAuthenticated, role, logout } = useContext(AuthContext);
+    const { isAuthenticated, auth, logout } = useContext(AuthContext);
     const [profileInfo, setProfileInfo] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchProfileInfo();
-    }, []);
+        //if (!isAuthenticated || (role !== 'ADMIN' || role !== 'USER')) {
+        if (!isAuthenticated || auth.role !== 'ADMIN') {
+            navigate('/login');
+        } else {
+            fetchProfileInfo();
+        }
+    }, [isAuthenticated, auth.role]);
 
     const fetchProfileInfo = async () => {
         try {
@@ -22,12 +39,59 @@ const MainPage = () => {
     };
 
     return (
-        <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
-            <div className="menu">
-                <h1>Horas extra Amadeus</h1>
-                <div className="grid">
+        <div style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            height: '100vh'
+        }}>
+            {/* Left Pane (Sidebar) */}
+            <div style={{
+                width: '250px',
+                backgroundColor: '#2c3e50',
+                color: 'white',
+                padding: '1rem',
+                height: '100vh', // Full height sidebar
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between' // Space between nav items and logout button
+            }}>
+                <div>
+                    <h2>Admin Dashboard</h2>
+                    <nav>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li><Link to="employees" style={{ color: 'white', textDecoration: 'none' }}>Employees</Link></li>
+                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Products</Link></li>
+                            <li><Link to="users-extra-hours" style={{ color: 'white', textDecoration: 'none' }}>Users Extra Hours</Link></li>
+                        </ul>
+                    </nav>
+
+                </div>
+                <button onClick={logout} style={{
+                    color: 'white',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: '0.5rem',
+                    fontSize: '1rem',
+                    textAlign: 'left'
+                }}>
+                    Logout
+                </button>
+                {/*<div className="p-6">
+                    <div className="grid">
+                        <h2 className="text-2xl font-bold mb-4">Horas extra Amadeus</h2>
+                        {profileInfo.role === "ADMIN" && (
+                            <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
+                        )}
+                    </div>
+                </div>*/}
+                {/* Content Area */}
+                <div style={{ flex: 1, padding: '1rem', overflowY: 'auto' }}>
+                    <h2>Horas Extra Amadeus</h2>
+                    <Outlet />
                     {profileInfo.role === "ADMIN" && (
-                        <h2><p style={{ color: '#FFFFFF' }}>Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</p></h2>
+                        <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
                     )}
                 </div>
             </div>

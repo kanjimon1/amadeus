@@ -1,0 +1,29 @@
+@use '../utils/variables' as vars;
+
+.app-layout {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: vars.$side-background-color;
+    color: vars.$side-color;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 20px 0;
+}
+
+.active {
+    font-weight: bold;
+}
