@@ -63,6 +63,50 @@ class UserService {
         }
     }
 
+    static async getAllUsers(token) {
+        try {
+            const response = await fetch(`${UserService.BASE_URL}/admin/get-all-users`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+            if (!response.ok) {
+                throw new Error('Error obteniendo las horas');
+            }
+
+            return await response.json();
+        } catch (err) {
+            console.error("error retornando las horas extras", err);
+            throw err;
+        }
+    }
+
+    static async deleteUser(userId, token) {
+        try {
+            const response = await fetch(`${UserService.BASE_URL}/admin/delete/${userId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+            if (!response.ok) {
+                throw new Error('Error eliminando el registro');
+            }
+
+            console.log("resultado de eliminar el rsgistro: ", response.json());
+            return await response.json();
+
+        } catch (err) {
+            console.error("Error eliminanado el usuario: ", err);
+            throw err;
+        }
+    }
+
     /** AUTHENTICATION CHECKER */
     static logout() {
         localStorage.removeItem('token');
