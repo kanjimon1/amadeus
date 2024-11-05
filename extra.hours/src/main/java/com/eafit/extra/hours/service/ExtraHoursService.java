@@ -10,14 +10,22 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class ExtraHoursService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExtraHoursService.class);
 
     @Autowired
     private ExtraHoursRepository extraHoursRepository;
 
     public List<HorasExtras> getAllExtraHours() {
-        return extraHoursRepository.findAll();
+        //return extraHoursRepository.findAll();
+        List<HorasExtras> extraHours = extraHoursRepository.findAll();
+        logger.info("Extra hours retrieved: {}", extraHours);
+        return extraHours;
     }
 
     /*public HorasExtras saveExtraHours(ExtraHoursDTO extraHoursDTO){

@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ExtraHoursRepository extends JpaRepository<HorasExtras, OurUsers> {
+public interface ExtraHoursRepository extends JpaRepository<HorasExtras, String> {
 
     //List<HorasExtras> findByEmployeeId(Long employeeId);
-    List<OurUsers> findByEmployeeId(OurUsers employeeId);
+    List<HorasExtras> findByEmployeeId(HorasExtras employeeId);
 
     @Procedure(name = "UpdateITEmployeeExtraHours")
     void updateExtraHours(

@@ -63,21 +63,31 @@ class UserService {
         }
     }
 
-    static async getAllUsers(token) {
+    static async getAllExtraHoursUsers(token) {
         try {
-            const response = await fetch(`${UserService.BASE_URL}/admin/get-all-users`,
+            console.log("ANTES DE LISTAR LAS HORAS: ");
+            const response = await fetch(`${UserService.BASE_URL}/list-eh`,
                 {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
+            console.log(`DESPUES DE LISTAR LAS HORAS: ${token}`, response);
 
             if (!response.ok) {
                 throw new Error('Error obteniendo las horas');
             }
 
-            return await response.json();
+            //console.log(`JSON DE LISTAR: `, response.json());
+
+            // Store the JSON response in a variable instead of logging it directly
+            const data = await response.json();
+            console.log('JSON DE LISTAR: ', data);
+
+            return data;
+
+            //return await response.json();
         } catch (err) {
             console.error("error retornando las horas extras", err);
             throw err;
