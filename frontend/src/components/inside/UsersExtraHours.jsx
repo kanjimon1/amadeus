@@ -88,7 +88,7 @@ const UsersExtraHours = () => {
             }
         };
 
-        if (isAuthenticated && auth.role === 'ADMIN') {
+        if (isAuthenticated && auth.role === 'ADMIN' || auth.role === 'USER') {
             fetchExtraHoursUsers();
         }
     }, [isAuthenticated, auth]);

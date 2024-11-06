@@ -54,7 +54,7 @@ const LoginForm = () => {
                 {errorMessage && <p class="error-message">{errorMessage}</p>}
                 {/*{jwtToken && <p class="token-display">JWT Token: {jwtToken}</p>}*/}
                 {/* Enlace para redirigir a la página de registro */}
-                <p></p>
+                <br />
                 <p>No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
             </div>
         </div>
