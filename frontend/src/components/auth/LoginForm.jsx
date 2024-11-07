@@ -27,6 +27,9 @@ const LoginForm = () => {
             backgroundPosition: 'center',
             height: '100vh'
         }}>
+            <br />
+            <br />
+            <br />
             <div class="login-container">
                 <h2>Amadeus Service Hub</h2>
                 <img alt="Amadeus" src={logo} />

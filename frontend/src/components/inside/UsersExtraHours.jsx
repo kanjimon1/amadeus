@@ -133,14 +133,13 @@ const UsersExtraHours = () => {
 
     return (
         <div className="table-container">
+            <h2>Horas Extra Amadeus</h2>
             <button
-                className="create-button"
+                className="update-button"
                 onClick={() => setCreateModalOpen(true)}
             >
                 Crear nuevo registro
             </button>
-            <h2>Horas Extra Amadeus</h2>
-
             {extraHours.length > 0 ? (
                 <div className="overflow-x-auto">
                     <center>
@@ -183,7 +182,7 @@ const UsersExtraHours = () => {
                                         <td>{hour.totalExtraHour}</td>
                                         <td>{hour.totalPayment}</td>
                                         <td>
-                                            <button className="delete-button">Delete</button>
+
                                             <button className="update-button">
                                                 {/*<Link to={`/update-user/${hour.id}`}>
                                                     Update
@@ -198,6 +197,7 @@ const UsersExtraHours = () => {
                                                     Update
                                                 </button>
                                             </button>
+                                            <button className="delete-button">Delete</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -228,7 +228,6 @@ const UsersExtraHours = () => {
                 onDelete={handleDelete}
                 id={selectedHour?.id}
             />
-
 
         </div>
     );

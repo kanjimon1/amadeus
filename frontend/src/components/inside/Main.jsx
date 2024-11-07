@@ -31,6 +31,8 @@ const MainPage = () => {
     };
 
     return (
+
+
         <div style={{
             display: 'flex',
             backgroundImage: `url(${background})`,
@@ -54,9 +56,12 @@ const MainPage = () => {
                     <h2 style={{ color: 'white', textDecoration: 'none' }}>Admin Dashboard</h2>
                     <nav>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
-                            <li><Link to="employees" style={{ color: 'white', textDecoration: 'none' }}>Employees</Link></li>
-                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Products</Link></li>
                             <li><Link to="users-extra-hours" style={{ color: 'white', textDecoration: 'none' }}>Users Extra Hours</Link></li>
+                            <li><Link to="employees" style={{ color: 'white', textDecoration: 'none' }}>Employees</Link></li>
+                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Jobs</Link></li>
+                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Areas</Link></li>
+                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Users</Link></li>
+                            <li><Link to="products" style={{ color: 'white', textDecoration: 'none' }}>Hour types</Link></li>
                         </ul>
                     </nav>
                 </div>
@@ -80,7 +85,7 @@ const MainPage = () => {
                     <h2 className="text-lg">Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</h2>
                 )}
             </div>
-        </div>
+        </div >
     );
 };
 
