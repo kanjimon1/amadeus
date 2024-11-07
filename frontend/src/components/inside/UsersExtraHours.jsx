@@ -20,7 +20,7 @@ const UsersExtraHours = () => {
     );
     const navigate = useNavigate();
 
-    const tableCellStyle = {
+    {/*const tableCellStyle = {
         border: '1px solid black',
         padding: '8px',
         textAlign: 'left'
@@ -30,7 +30,7 @@ const UsersExtraHours = () => {
         ...tableCellStyle,
         backgroundColor: '#f3f4f6',
         fontWeight: 'bold'
-    };
+    };*/}
 
     //const navigate = useNavigate();
 
@@ -230,56 +230,55 @@ const UsersExtraHours = () => {
 };*/}
 
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Horas Extra Amadeus</h2>
-
+        <div className="table-container">
+            <h2>Horas Extra Amadeus</h2>
             {extraHours.length > 0 ? (
                 <div className="overflow-x-auto">
                     <center>
-                        <table
-                            style={{ borderCollapse: 'collapse', width: '100%' }}>
+                        <table>
                             <thead>
                                 <tr>
-                                    <th style={tableHeaderStyle}>ID</th>
-                                    <th style={tableHeaderStyle}>Id empleado</th>
-                                    <th style={tableHeaderStyle}>Nombre Empleado</th>
-                                    <th style={tableHeaderStyle}>Cargo</th>
-                                    <th style={tableHeaderStyle}>Salario</th>
-                                    <th style={tableHeaderStyle}>Area</th>
-                                    <th style={tableHeaderStyle}>% H/Extra</th>
-                                    <th style={tableHeaderStyle}>Desc H/Extra</th>
-                                    <th style={tableHeaderStyle}>startDatetime</th>
-                                    <th style={tableHeaderStyle}>endDatetime</th>
-                                    <th style={tableHeaderStyle}>hourPrice</th>
-                                    <th style={tableHeaderStyle}>amountExtraHours</th>
-                                    <th style={tableHeaderStyle}>comments</th>
-                                    <th style={tableHeaderStyle}>totalExtraHour</th>
-                                    <th style={tableHeaderStyle}>totalPayment</th>
+                                    <th>ID</th>
+                                    <th>Id empleado</th>
+                                    <th>Nombre Empleado</th>
+                                    <th>Cargo</th>
+                                    <th>Salario</th>
+                                    <th>Area</th>
+                                    <th>% H/Extra</th>
+                                    <th>Desc H/Extra</th>
+                                    <th>startDatetime</th>
+                                    <th>endDatetime</th>
+                                    <th>hourPrice</th>
+                                    <th>amountExtraHours</th>
+                                    <th>comments</th>
+                                    <th>totalExtraHour</th>
+                                    <th>totalPayment</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {extraHours.map((hour) => (
                                     <tr key={hour.id} className="hover:bg-gray-50">
-                                        <td style={{ color: 'red', textDecoration: 'none' }}>{hour.id}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.employee.employeeId}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.employee.employeeName}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.employee.job.jobName}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.employee.salary}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.employee.area.areaName}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.extraHourType.percentage}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.extraHourType.percentage}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.startDatetime}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.endDatetime}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.hourPrice}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.amountExtraHours}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.comments}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.totalExtraHour}</td>
-                                        <td style={{ color: 'white', textDecoration: 'none' }}>{hour.totalPayment}</td>
+                                        <td>{hour.id}</td>
+                                        <td>{hour.employee.employeeId}</td>
+                                        <td >{hour.employee.employeeName}</td>
+                                        <td>{hour.employee.job.jobName}</td>
+                                        <td>{hour.employee.salary}</td>
+                                        <td >{hour.employee.area.areaName}</td>
+                                        <td >{hour.extraHourType.percentage}</td>
+                                        <td >{hour.extraHourType.percentage}</td>
+                                        <td >{hour.startDatetime}</td>
+                                        <td >{hour.endDatetime}</td>
+                                        <td >{hour.hourPrice}</td>
+                                        <td >{hour.amountExtraHours}</td>
+                                        <td>{hour.comments}</td>
+                                        <td>{hour.totalExtraHour}</td>
+                                        <td>{hour.totalPayment}</td>
                                         <td>
-                                            <button className='delete-button' >Delete</button>
-                                            <button><Link to={`/update-user/${hour.id}`}>
-                                                Update
-                                            </Link>
+                                            <button className="delete-button">Delete</button>
+                                            <button className="update-button">
+                                                <Link to={`/update-user/${hour.id}`}>
+                                                    Update
+                                                </Link>
                                             </button>
                                         </td>
                                     </tr>
