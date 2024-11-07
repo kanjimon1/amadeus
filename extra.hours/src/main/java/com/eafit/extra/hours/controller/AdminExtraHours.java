@@ -1,6 +1,7 @@
 package com.eafit.extra.hours.controller;
 
 import com.eafit.extra.hours.dto.ExtraHoursDTO;
+import com.eafit.extra.hours.dto.UserExtraHoursDTO;
 import com.eafit.extra.hours.entity.HorasExtras;
 import com.eafit.extra.hours.service.ExtraHoursService;
 import jakarta.validation.Valid;
@@ -50,6 +51,16 @@ public class AdminExtraHours {
     @GetMapping("/list-eh")
     public List<HorasExtras> getAllExtraHours() {
         return extraHoursService.getAllExtraHours();
+    }
+
+    /*@GetMapping("/list-eh-user")
+    public List<HorasExtras> getAllExtraHoursByUser() {
+        return extraHoursService.getAllExtraHours();
+    }*/
+
+    @GetMapping("/list-eh-user")
+    public List<UserExtraHoursDTO> getAllExtraHoursByUser(@RequestParam("email") String email) {
+        return extraHoursService.getExtraHoursByEmail(email);
     }
 
     @PostMapping("/update")

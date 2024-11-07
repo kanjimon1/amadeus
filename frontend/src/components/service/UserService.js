@@ -94,6 +94,37 @@ class UserService {
         }
     }
 
+    static async getAllExtraHoursUsersByUser(token, email) {
+        try {
+            console.log("TRY HORAS POR USUARIO: ");
+            const response = await fetch(`${UserService.BASE_URL}/list-eh-user?email=${email}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+            console.log(`DESPUES HORAS POR USER: ${token}`, response);
+
+            if (!response.ok) {
+                throw new Error('Error obteniendo las horas');
+            }
+
+            //console.log(`JSON DE LISTAR: `, response.json());
+
+            // Store the JSON response in a variable instead of logging it directly
+            const data = await response.json();
+            console.log('LISTAR HORAS USUARIOS JSON: ', data);
+
+            return data;
+
+            //return await response.json();
+        } catch (err) {
+            console.error("error retornando las horas extras", err);
+            throw err;
+        }
+    }
+
     static async deleteUser(userId, token) {
         try {
             const response = await fetch(`${UserService.BASE_URL}/admin/delete/${userId}`,

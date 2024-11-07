@@ -1,6 +1,7 @@
 package com.eafit.extra.hours.service;
 
 import com.eafit.extra.hours.dto.ExtraHoursDTO;
+import com.eafit.extra.hours.dto.UserExtraHoursDTO;
 import com.eafit.extra.hours.entity.HorasExtras;
 import com.eafit.extra.hours.repository.ExtraHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,17 @@ public class ExtraHoursService {
         List<HorasExtras> extraHours = extraHoursRepository.findAll();
         logger.info("Extra hours retrieved: {}", extraHours);
         return extraHours;
+    }
+
+    /*public List<HorasExtras> getAllExtraHoursByUser() {
+        //return extraHoursRepository.findAll();
+        List<HorasExtras> extraHours = extraHoursRepository.findUserExtraHoursByEmail();
+        logger.info("User extra hours retrieved: {}", extraHours);
+        return extraHours;
+    }*/
+
+    public List<UserExtraHoursDTO> getExtraHoursByEmail(String email) {
+        return extraHoursRepository.findUserExtraHoursByEmail(email);
     }
 
     /*public HorasExtras saveExtraHours(ExtraHoursDTO extraHoursDTO){

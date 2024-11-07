@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({
         token: localStorage.getItem('token'),
         role: localStorage.getItem('role'),
+        email: localStorage.getItem('email'), // Añadimos email al estado
     });
     const navigate = useNavigate();
 
@@ -24,16 +25,17 @@ export const AuthProvider = ({ children }) => {
             if (userData.token) {
                 localStorage.setItem('token', userData.token);
                 localStorage.setItem('role', userData.role);
-                setAuth({ token: userData.token, role: userData.role });
+                localStorage.setItem('email', email); // Guardamos el email en localStorage
+                setAuth({ token: userData.token, role: userData.role, email: email });
 
-                console.log("consultando authContext token y rol: ", userData, userData.token, userData.role);
+                console.log("consultando authContext token y rol: ", userData.token, userData.role, email);
                 // Redirect based on role
                 if (userData.role === 'ADMIN') {
                     navigate('/main');
-                    console.log("if main: ", userData.token, userData.role);
+                    console.log("if main: ", userData.token, userData.role, email);
                 } else if (userData.role === 'USER') {
                     navigate('/users-extra-hours');
-                    console.log("if users: ", userData.token, userData.role);
+                    console.log("if users: ", userData.token, userData.role, email);
                 }
             }
         } catch (error) {
@@ -42,8 +44,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
+        localStorage.removeItem('email'); // Limpiamos el email al cerrar sesión
         UserService.logout();
-        setAuth({ token: null, role: null });
+        setAuth({ token: null, role: null, email: null });
         navigate('/login');
     };
 

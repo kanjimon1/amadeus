@@ -6,7 +6,6 @@ import { Outlet, Link, useNavigate, Form } from 'react-router-dom';
 //import { Card, CardHeader, CardTitle, CardContent } from '@/components/iu/card';
 //import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 
-
 const UsersExtraHours = () => {
 
     //const [profileInfo, setProfileInfo] = useState({});
@@ -16,7 +15,10 @@ const UsersExtraHours = () => {
     const [extraHours, setExtraHours] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { isAuthenticated, auth, logout } = useContext(AuthContext);
+    const { isAuthenticated, auth, logout } = useContext(AuthContext
+
+    );
+    const navigate = useNavigate();
 
     const tableCellStyle = {
         border: '1px solid black',
@@ -33,11 +35,11 @@ const UsersExtraHours = () => {
     //const navigate = useNavigate();
 
     /*useEffect(() => {
-        if (!isAuthenticated || auth.role !== 'ADMIN') {
+        if (!isAuthenticated || auth.role !== 'ADMIN' || auth.role !== 'USER') {
             navigate('/login');
         } else {
             //fetchProfileInfo();
-            fetchExtraHoursUsers();
+            fetchExtraHoursUsersByUser();
         }
     }, [isAuthenticated, auth.role]);*/
 
@@ -76,7 +78,53 @@ const UsersExtraHours = () => {
     };*/
 
     useEffect(() => {
+
+        //const FetchExtraHoursUsersByUser = async (email) => {
+        const fetchExtraHoursUsersByUser = async () => {
+            try {
+                const data = await UserService.getAllExtraHoursUsersByUser(auth.token, auth.email);
+                console.log("RESPUESTA DESDE EL SERVER: ", data);
+                // Map the response to the structure expected by extraHours
+                const formattedData = data.map(hour => ({
+                    id: hour.employeeId,
+                    employee: {
+                        employeeId: hour.employeeId,
+                        employeeName: hour.employeeName,
+                        salary: hour.salary,
+                        area: { areaName: hour.areaName },
+                        job: { jobName: hour.jobName }
+                    },
+                    amountExtraHours: hour.amountExtraHours,
+                    startDatetime: hour.startDatetime,
+                    endDatetime: hour.endDatetime,
+                    totalExtraHour: hour.totalExtraHour,
+                    totalPayment: hour.totalPayment,
+                    extraHourType: {
+                        description: hour.extraHourTypeDescription
+                    }
+                }));
+                setExtraHours(formattedData);
+                setLoading(false);
+            } catch (err) {
+                console.error('Error fetching user extra hours:', err);
+                setError('Error loading user extra hours data');
+                setLoading(false);
+            }
+        };
+
+        if (isAuthenticated && auth.role === 'USER' && auth.email) {
+            console.log("Auth state:", { isAuthenticated, role: auth.role, email: auth.email });
+            fetchExtraHoursUsersByUser();
+        }
+
+    }, [isAuthenticated, auth]);
+
+
+    useEffect(() => {
+
+        console.log("ENTRA AL USE EFFECT");
         const fetchExtraHoursUsers = async () => {
+            console.log("ENTRA AL USE EFFECT FECTH ADMIN");
             try {
                 const data = await UserService.getAllExtraHoursUsers(auth.token);
                 setExtraHours(data);
@@ -88,7 +136,8 @@ const UsersExtraHours = () => {
             }
         };
 
-        if (isAuthenticated && auth.role === 'ADMIN' || auth.role === 'USER') {
+        if (isAuthenticated && auth.role === 'ADMIN') {
+            console.log("Auth state:", { isAuthenticated, role: auth.role, email: auth.email });
             fetchExtraHoursUsers();
         }
     }, [isAuthenticated, auth]);
@@ -112,7 +161,7 @@ const UsersExtraHours = () => {
         try {
             // Prompt for confirmation before deleting the user
             const confirmDelete = window.confirm('Are you sure you want to delete this user?');
-    
+     
             const token = localStorage.getItem('token'); // Retrieve the token from localStorage
             if (confirmDelete) {
                 await UserService.deleteUser(userId, token);

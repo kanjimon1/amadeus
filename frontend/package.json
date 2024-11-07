@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "sass": "sass ./src/assets/styles/main.scss ./src/assets/styles/main.css --watch",
     "start": "concurrently \"npm run start-react\" \"npm run sass\"",
-    "start-react": "react-scripts start"
+    "start-react": "react-scripts start --source-map"
   },
   "eslintConfig": {
     "extends": [
