@@ -3,79 +3,22 @@ import UserService from '../service/UserService';
 import background from '../../assets/images/mainBackground.png';
 import { AuthContext } from '../context/AuthContext';
 import { Outlet, Link, useNavigate, Form } from 'react-router-dom';
-//import { Card, CardHeader, CardTitle, CardContent } from '@/components/iu/card';
-//import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import CreateModal from './CreateExtraHourModal';
+import UpdateModal from './UpdateExtraHoursModal';
+import DeleteModal from './DeleteExtraHoursModal';
 
 const UsersExtraHours = () => {
-
-    //const [profileInfo, setProfileInfo] = useState({});
-    /*const { isAuthenticated, auth, logout } = useContext(AuthContext);
-    const [profileInfo, setProfileInfo] = useState({});*/
 
     const [extraHours, setExtraHours] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { isAuthenticated, auth, logout } = useContext(AuthContext
-
-    );
+    const { isAuthenticated, auth, logout } = useContext(AuthContext);
     const navigate = useNavigate();
-
-    {/*const tableCellStyle = {
-        border: '1px solid black',
-        padding: '8px',
-        textAlign: 'left'
-    };
-
-    const tableHeaderStyle = {
-        ...tableCellStyle,
-        backgroundColor: '#f3f4f6',
-        fontWeight: 'bold'
-    };*/}
-
-    //const navigate = useNavigate();
-
-    /*useEffect(() => {
-        if (!isAuthenticated || auth.role !== 'ADMIN' || auth.role !== 'USER') {
-            navigate('/login');
-        } else {
-            //fetchProfileInfo();
-            fetchExtraHoursUsersByUser();
-        }
-    }, [isAuthenticated, auth.role]);*/
-
-    /*useEffect(() => {
-        fetchProfileInfo();
-    }, []);
-    
-    const fetchProfileInfo = async () => {
-        try {
-    
-            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-            const response = await UserService.getYourProfile(token);
-            setProfileInfo(response.ourUsers);
-        } catch (error) {
-            console.error('Error fetching profile information:', error);
-        }
-    };*/
-
-    /*const [users, setExtraHoursUsers] = useState([]);
-    
-    useEffect(() => {
-        // Fetch users data when the component mounts
-        fetchExtraHoursUsers();
-    }, []);
-    
-    const fetchExtraHoursUsers = async () => {
-        try {
-    
-            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-            const response = await UserService.getAllExtraHoursUsers(token);
-            //   console.log(response);
-            setExtraHoursUsers(response.ourUsersList); // Assuming the list of users is under the key 'ourUsersList'
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };*/
+    const [createModalOpen, setCreateModalOpen] = useState(false);
+    const [updateModalOpen, setUpdateModalOpen] = useState(false);
+    //const [selectedHour, setSelectedHour] = useState(null);
+    const [selectedHour, setSelectedHour] = useState({});
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     useEffect(() => {
 
@@ -140,7 +83,45 @@ const UsersExtraHours = () => {
             console.log("Auth state:", { isAuthenticated, role: auth.role, email: auth.email });
             fetchExtraHoursUsers();
         }
+
     }, [isAuthenticated, auth]);
+
+    const handleCreate = async (newData) => {
+        try {
+            const newHour = await UserService.createExtraHour(auth.token, newData);
+            setExtraHours([...extraHours, newHour]);
+            setCreateModalOpen(false);
+        } catch (err) {
+            console.error('Error creating extra hour:', err);
+            setError('Error creating extra hour');
+        }
+    };
+
+    const handleUpdate = async (id, updatedData) => {
+        try {
+            await UserService.updateExtraHour(auth.token, id, updatedData);
+            setExtraHours(
+                extraHours.map((hour) =>
+                    hour.id === id ? { ...hour, ...updatedData } : hour
+                )
+            );
+            setUpdateModalOpen(false);
+        } catch (err) {
+            console.error('Error updating extra hour:', err);
+            setError('Error updating extra hour');
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await UserService.deleteExtraHour(auth.token, id);
+            setExtraHours(extraHours.filter((hour) => hour.id !== id));
+            setDeleteModalOpen(false);
+        } catch (err) {
+            console.error('Error deleting extra hour:', err);
+            setError('Error deleting extra hour');
+        }
+    };
 
     if (loading) {
         return <div className="flex justify-center items-center p-4">Loading...</div>;
@@ -150,88 +131,16 @@ const UsersExtraHours = () => {
         return <div className="text-red-500 p-4">{error}</div>;
     }
 
-    /*const formatDateTime = (dateString) => {
-        return new Date(dateString).toLocaleString('es-ES', {
-            dateStyle: 'medium',
-            timeStyle: 'short'
-        });
-    };*/
-
-    /*const deleteUser = async (userId) => {
-        try {
-            // Prompt for confirmation before deleting the user
-            const confirmDelete = window.confirm('Are you sure you want to delete this user?');
-     
-            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-            if (confirmDelete) {
-                await UserService.deleteUser(userId, token);
-                // After deleting the user, fetch the updated list of users
-                fetchUsers();
-            }
-        } catch (error) {
-            console.error('Error deleting user:', error);
-        }
-    };*/
-
-    {/*return (
-        <div>
-            <div className="menu">
-                <h1 style={{ color: 'white', textDecoration: 'none' }}>Horas extra Amadeus</h1>
-                <div className="grid">
-                    {profileInfo.role === "USER" && (
-                        <h2><p style={{ color: '#FFFFFF' }}>Profile id: ${profileInfo.id} Profile: ${profileInfo.role}</p></h2>
-                    )}
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>ID</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Employee ID</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Employee Name</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Job Name</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Salary</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Area</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Percentage</th>
-                            <th style={{ color: 'white', textDecoration: 'none' }}>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users && users.length > 0 ? (
-                            users.map(user => (
-                                <tr key={user.id}>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.id}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.employee.employeeId}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.employee.employeeName}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.employee.job.jobName}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.employee.salary}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.area.areaName}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.extraHourType.percentage}</td>
-                                    <td style={{ color: 'white', textDecoration: 'none' }}>{user.extraHourType.description}</td>
-                                    <td>
-                                        <button className='delete-button' >Delete</button>
-                                        <button><Link to={`/update-user/${user.id}`}>
-                                            Update
-                                        </Link>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="8" style={{ color: 'white', textAlign: 'center' }}>No users found</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </div >
-    );
-
-};*/}
-
     return (
         <div className="table-container">
+            <button
+                className="create-button"
+                onClick={() => setCreateModalOpen(true)}
+            >
+                Crear nuevo registro
+            </button>
             <h2>Horas Extra Amadeus</h2>
+
             {extraHours.length > 0 ? (
                 <div className="overflow-x-auto">
                     <center>
@@ -263,22 +172,31 @@ const UsersExtraHours = () => {
                                         <td >{hour.employee.employeeName}</td>
                                         <td>{hour.employee.job.jobName}</td>
                                         <td>{hour.employee.salary}</td>
-                                        <td >{hour.employee.area.areaName}</td>
-                                        <td >{hour.extraHourType.percentage}</td>
-                                        <td >{hour.extraHourType.percentage}</td>
-                                        <td >{hour.startDatetime}</td>
-                                        <td >{hour.endDatetime}</td>
-                                        <td >{hour.hourPrice}</td>
-                                        <td >{hour.amountExtraHours}</td>
+                                        <td>{hour.employee.area.areaName}</td>
+                                        <td>{hour.extraHourType.percentage}</td>
+                                        <td>{hour.extraHourType.percentage}</td>
+                                        <td>{hour.startDatetime}</td>
+                                        <td>{hour.endDatetime}</td>
+                                        <td>{hour.hourPrice}</td>
+                                        <td>{hour.amountExtraHours}</td>
                                         <td>{hour.comments}</td>
                                         <td>{hour.totalExtraHour}</td>
                                         <td>{hour.totalPayment}</td>
                                         <td>
                                             <button className="delete-button">Delete</button>
                                             <button className="update-button">
-                                                <Link to={`/update-user/${hour.id}`}>
+                                                {/*<Link to={`/update-user/${hour.id}`}>
                                                     Update
-                                                </Link>
+                                                </Link>*/}
+                                                <button
+                                                    className="update-button"
+                                                    onClick={() => {
+                                                        setSelectedHour(hour);
+                                                        setUpdateModalOpen(true);
+                                                    }}
+                                                >
+                                                    Update
+                                                </button>
                                             </button>
                                         </td>
                                     </tr>
@@ -292,6 +210,26 @@ const UsersExtraHours = () => {
                     No se encontraron registros de horas extra
                 </div>
             )}
+
+            <CreateModal
+                isOpen={createModalOpen}
+                onClose={() => setCreateModalOpen(false)}
+                onCreate={handleCreate}
+            />
+            <UpdateModal
+                isOpen={updateModalOpen}
+                onClose={() => setUpdateModalOpen(false)}
+                onUpdate={handleUpdate}
+                hour={selectedHour}
+            />
+            <DeleteModal
+                isOpen={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onDelete={handleDelete}
+                id={selectedHour?.id}
+            />
+
+
         </div>
     );
 };
